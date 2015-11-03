@@ -112,19 +112,7 @@ public class ClassifyCron
                 //get raw data and put it into the data structure
                 BasicDBObject current_loc = (BasicDBObject)cursor.next();
                 //update item to have been processed
-                /*
-                 * 
-                 * 
-                 * 
-                 * 
-                 *  UNCOMMENT THE NEXT FUCKING LINE YOU PRICK!
-                 *  
-                 *  
-                 *  
-                 *  
-                 *  
-                 */
-                //coll.update(current_loc,new BasicDBObject("$set", new BasicDBObject("processed", true)));
+                coll.update(current_loc,new BasicDBObject("$set", new BasicDBObject("processed", true)));
                 //Extract Email Address and Date_Created fields so we can update the data collection at the end
                 String Email_Address = (String)current_loc.get("email");
                 //Now that we have the Email Address we need to find the patients weight so we can laugh it it
