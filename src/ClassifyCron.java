@@ -269,7 +269,7 @@ public class ClassifyCron
                 int max = 0;
                 for(int key : keys)
                 {
-                    String Activity_Name = "";
+                   
                     double Calories_Burned = 0.0;
                     /*
                      * TO DO:::::::::::::::::::::::
@@ -283,6 +283,7 @@ public class ClassifyCron
                          max = Activities.get(key);
                      }
                 }
+                    String Activity_Name = "";
                     switch(max)
                     {
                         case 0:
