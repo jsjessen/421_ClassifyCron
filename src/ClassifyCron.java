@@ -266,6 +266,7 @@ public class ClassifyCron
                     }
                 }
                 Set<Integer> keys = Activities.keySet();
+                int max = 0;
                 for(int key : keys)
                 {
                     String Activity_Name = "";
@@ -277,127 +278,132 @@ public class ClassifyCron
                      * Use MET? http://www.topendsports.com/weight-loss/energy-met.htm
                      * MET FORMULA! Weight(in kgs) * MET * time/1hour
                      */
-                    switch(key)
+                     if(max < Activities.get(key))
+                     {
+                         max = Activities.get(key);
+                     }
+                }
+                    switch(max)
                     {
                         case 0:
                             Activity_Name = "Sitting with Hands on Lap";
                             //MET: 1.3
-                            Calories_Burned = (Weight / 2.2) * 1.3 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 1.3 * (max/ 3600);
                             break;
                         case 1:
                             Activity_Name = "Sitting while Writing";
                             //MET: 1.8
-                            Calories_Burned = (Weight / 2.2) * 1.8 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 1.8 * (max/ 3600);
                             break;
                         case 2:
                             Activity_Name = "Siting while Typing";
                             //MET: 1.8
-                            Calories_Burned = (Weight / 2.2) * 1.8 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 1.8 * (max/ 3600);
                             break;
                         case 3:
                             Activity_Name = "Lying Down on Back";
                             //MET: 1
-                            Calories_Burned = (Weight / 2.2) * 1 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 1 * (max/ 3600);
                             break;
                         case 4:
                             Activity_Name = "Lying on Right Side";
                             //MET: 1
-                            Calories_Burned = (Weight / 2.2) * 1 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 1 * (max/ 3600);
                             break;
                         case 5:
                             Activity_Name = "Jumping Jacks";
                             //MET: 7
-                            Calories_Burned = (Weight / 2.2) * 7 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 7 * (max/ 3600);
                             break;
                         case 6:
                             Activity_Name = "Butt Kickers";
                             //MET = 7
-                            Calories_Burned = (Weight / 2.2) * 7 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 7 * (max/ 3600);
                             break;
                         case 7:
                             Activity_Name = "High Knees";
                             //MET = 7
-                            Calories_Burned = (Weight / 2.2) * 7 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 7 * (max/ 3600);
                             break;
                         case 8:
                             Activity_Name = "Flutter Kicks";
                             //MET = 7
-                            Calories_Burned = (Weight / 2.2) * 7 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 7 * (max/ 3600);
                             break;
                         case 9:
                             Activity_Name = "Lunges";
                             //MET = 7
-                            Calories_Burned = (Weight / 2.2) * 7 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 7 * (max/ 3600);
                             break;
                         case 10:
                             Activity_Name = "Crunches";
                             //MET = 7
-                            Calories_Burned = (Weight / 2.2) * 7 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 7 * (max/ 3600);
                             break;
                         case 11:
                             Activity_Name = "Squats";
                             //MET = 7
-                            Calories_Burned = (Weight / 2.2) * 7 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 7 * (max/ 3600);
                             break;
                         case 12:
                             Activity_Name = "Pushups";
                             //MET = 7
-                            Calories_Burned = (Weight / 2.2) * 7 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 7 * (max/ 3600);
                             break;
                         case 13:
                             Activity_Name = "Walking Up Stairs";
                             //MET = 2.5
-                            Calories_Burned = (Weight / 2.2) * 2.5 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 2.5 * (max/ 3600);
                             break;
                         case 14:
                             Activity_Name = "Walking Down Stairs";
                             //MET = 2.5
-                            Calories_Burned = (Weight / 2.2) * 2.5 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 2.5 * (max/ 3600);
                             break;
                         case 15:
                             Activity_Name = "Standing with Arms at Sides";
                             //MET = 1.3
-                            Calories_Burned = (Weight / 2.2) * 1.3 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 1.3 * (max/ 3600);
                             break;
                         case 16:
                             Activity_Name = "Standing with Arms Crossed";
                             //MET = 1.3
-                            Calories_Burned =(Weight / 2.2) * 1.3 * (Activities.get(key)/ 3600);
+                            Calories_Burned =(Weight / 2.2) * 1.3 * (max/ 3600);
                             break;
                         case 17:
                             Activity_Name = "Slow Walk";
                             //MET = 2.5
-                            Calories_Burned = (Weight / 2.2) * 2.5 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 2.5 * (max/ 3600);
                             break;
                         case 18:
                             Activity_Name ="Normal Walk";
                             //MET = 3
-                            Calories_Burned = (Weight / 2.2) * 3 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 3 * (max/ 3600);
                             break;
                         case 19:
                             Activity_Name ="Fast Walk";
                             //MET = 5
-                            Calories_Burned = (Weight / 2.2) * 5 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 5 * (max/ 3600);
                             break;
                         case 20:
                             Activity_Name ="Jogging";
                             //MET = 8
-                            Calories_Burned = (Weight / 2.2) * 8 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 8 * (max/ 3600);
                             break;
                         case 21:
                             Activity_Name ="Running";
                             //MET = 10
-                            Calories_Burned = (Weight / 2.2) * 10 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 10 * (max/ 3600);
                             break;
                         case 22:
                             Activity_Name ="Biking";
                             //MET = 6
-                            Calories_Burned = (Weight / 2.2) * 6 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 6 * (max/ 3600);
                             break;
                         case 23:
                             Activity_Name = "Dips";
                             //MET = 7
-                            Calories_Burned = (Weight / 2.2) * 7 * (Activities.get(key)/ 3600);
+                            Calories_Burned = (Weight / 2.2) * 7 * (max/ 3600);
                             break;
                     }
 
