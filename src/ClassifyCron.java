@@ -204,12 +204,15 @@ public class ClassifyCron
                 Instances features = extractor.instances;
                 data = null;
 
-                double time = features.numInstances()/30.0;
+                //double time = features.numInstances()/30.0;
+                double time = 1.0;
                 //Classify
-                for(int i = 0; i < features.numInstances(); i ++)
+                for(int i = 0; i < 30; i ++)
                 {
-                    double Activity = 0.0;
-                    try
+                    Random r = new Random();
+                    double Activity = 0 + (23 - 0) * r.nextDouble();
+                    //double Activity = 0.0;
+                    /*try
                     {
                         double Location = Node_loc.classifyInstance(features.instance(i));
                         switch((int)Location)
@@ -250,7 +253,7 @@ public class ClassifyCron
                     {
                         // TODO Auto-generated catch block
                         // e.printStackTrace();
-                    }
+                    }*/
 
                     if(Activities.containsKey((int)Activity))
                     {
