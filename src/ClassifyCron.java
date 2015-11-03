@@ -1,3 +1,5 @@
+package com.ireach;
+
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.BulkWriteOperation;
@@ -19,39 +21,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import weka.core.converters.ConverterUtils.DataSource;
 import weka.core.Instances;
 import weka.classifiers.*;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.net.UnknownHostException;
+
 public class ClassifyCron 
 {
-    static class RawData
-    {
-        public List<Double> Acc_x;
-        public List<Double> Acc_y;
-        public List<Double> Acc_z;
-        public List<Double> Gyro_x;
-        public List<Double> Gyro_y;
-        public List<Double> Gyro_z;
-        public List<Double> Mag_x;
-        public List<Double> Mag_y;
-        public List<Double> Mag_z;
-
-        public RawData()
-        {
-            Acc_x = new ArrayList<Double>();
-            Acc_y = new ArrayList<Double>();
-            Acc_z = new ArrayList<Double>();
-            Gyro_x = new ArrayList<Double>();
-            Gyro_y = new ArrayList<Double>();
-            Gyro_z = new ArrayList<Double>();
-            Mag_x = new ArrayList<Double>();
-            Mag_y = new ArrayList<Double>();
-            Mag_z = new ArrayList<Double>();
-        }
-    }
     public static void main(String[] args)
     {
         MongoClient mongoClient = null;
@@ -69,20 +48,37 @@ public class ClassifyCron
             //e.printStackTrace();
         }
 
-        //load the classifiers
-        /*
-           Classifier Node_loc = (Classifier) weka.core.SerializationHelper.read("/some/where/NodeLoc.model");
-           Classifier One = (Classifier) weka.core.SerializationHelper.read("/some/where/ActRec1.model");
-           Classifier Two = (Classifier) weka.core.SerializationHelper.read("/some/where/ActRec2.model");
-           Classifier Three = (Classifier) weka.core.SerializationHelper.read("/some/where/ActRec3.model");
-           Classifier Four = (Classifier) weka.core.SerializationHelper.read("/some/where/ActRec4.model");
-           Classifier Five = (Classifier) weka.core.SerializationHelper.read("/some/where/ActRec5.model");
-           Classifier Six = (Classifier) weka.core.SerializationHelper.read("/some/where/ActRec6.model");
-           Classifier Seven = (Classifier) weka.core.SerializationHelper.read("/some/where/ActRec7.model");
-           Classifier Eight = (Classifier) weka.core.SerializationHelper.read("/some/where/ActRec8.model");
-           Classifier Nine = (Classifier) weka.core.SerializationHelper.read("/some/where/ActRec9.model"); 
-           Classifier Ten = (Classifier) weka.core.SerializationHelper.read("/some/where/ActRec10.model");
-           */
+        Classifier Node_loc = null;
+        Classifier One = null;
+        Classifier Two = null;
+        Classifier Three = null;
+        Classifier Four = null;
+        Classifier Five = null;
+        Classifier Six = null;
+        Classifier Seven = null;
+        Classifier Eight = null;
+        Classifier Nine = null;
+        Classifier Ten = null;
+        try
+        {
+            //load the classifiers
+            Node_loc = (Classifier) weka.core.SerializationHelper.read("models/NodeLoc.model");
+            One = (Classifier) weka.core.SerializationHelper.read("models/ActRec1.model");
+            Two = (Classifier) weka.core.SerializationHelper.read("models/ActRec2.model");
+            Three = (Classifier) weka.core.SerializationHelper.read("models/ActRec3.model");
+            Four = (Classifier) weka.core.SerializationHelper.read("models/ActRec4.model");
+            Five = (Classifier) weka.core.SerializationHelper.read("models/ActRec5.model");
+            Six = (Classifier) weka.core.SerializationHelper.read("models/ActRec6.model");
+            Seven = (Classifier) weka.core.SerializationHelper.read("models/ActRec7.model");
+            Eight = (Classifier) weka.core.SerializationHelper.read("models/ActRec8.model");
+            Nine = (Classifier) weka.core.SerializationHelper.read("models/ActRec9.model"); 
+            Ten = (Classifier) weka.core.SerializationHelper.read("models/ActRec10.model");
+        }
+        catch (Exception e) 
+        {
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+        }
 
         //Get Database
         DB db = mongoClient.getDB(database_name);
@@ -146,7 +142,7 @@ public class ClassifyCron
                     BasicDBList Money;
 
                     //Get the Acc subdirectory
-                    BasicDBObject Storage = (BasicDBObject)current_loc.get("Acc");
+                    Storage = (BasicDBObject)current_loc.get("Acc");
                     //Get the x subarray of the subdirectory and add it to Data.Acc.x
                     Money = (BasicDBList) Storage.get("x");
                     for(Object num: Money)
@@ -212,50 +208,60 @@ public class ClassifyCron
                 catch (Exception e) 
                 {
                     // TODO Auto-generated catch block
-                    //e.printStackTrace();
+                    // e.printStackTrace();
                 }
 
                 //Run data through feature extraction
-                Instances features = Feature_Extractor(data); // JAMES
+                FeatureExtractor extractor = new FeatureExtractor(data);
+                Instances features = extractor.instances;
                 data = null;
+
                 double time = features.numInstances()/30.0;
-                //Classify that ish
+                //Classify
                 for(int i = 0; i < features.numInstances(); i ++)
                 {
-                    double Location = Node_loc.classifyInstance(features.instance(i));
                     double Activity = 0.0;
-                    switch((int)Location)
+                    try
                     {
-                        case 0:
-                            Activity = One.classifyInstance(features.instance(0));
-                            break;
-                        case 1:
-                            Activity = Two.classifyInstance(features.instance(0));
-                            break;
-                        case 2:
-                            Activity = Three.classifyInstance(features.instance(0));
-                            break;
-                        case 3:
-                            Activity = Four.classifyInstance(features.instance(0));
-                            break;
-                        case 4:
-                            Activity = Five.classifyInstance(features.instance(0));
-                            break;
-                        case 5:
-                            Activity = Six.classifyInstance(features.instance(0));
-                            break;
-                        case 6:
-                            Activity = Seven.classifyInstance(features.instance(0));
-                            break;
-                        case 7:
-                            Activity = Eight.classifyInstance(features.instance(0));
-                            break;
-                        case 8: 
-                            Activity = Nine.classifyInstance(features.instance(0));
-                            break;
-                        case 9: 
-                            Activity = Ten.classifyInstance(features.instance(0));
-                            break;
+                        double Location = Node_loc.classifyInstance(features.instance(i));
+                        switch((int)Location)
+                        {
+                            case 0:
+                                Activity = One.classifyInstance(features.instance(0));
+                                break;
+                            case 1:
+                                Activity = Two.classifyInstance(features.instance(0));
+                                break;
+                            case 2:
+                                Activity = Three.classifyInstance(features.instance(0));
+                                break;
+                            case 3:
+                                Activity = Four.classifyInstance(features.instance(0));
+                                break;
+                            case 4:
+                                Activity = Five.classifyInstance(features.instance(0));
+                                break;
+                            case 5:
+                                Activity = Six.classifyInstance(features.instance(0));
+                                break;
+                            case 6:
+                                Activity = Seven.classifyInstance(features.instance(0));
+                                break;
+                            case 7:
+                                Activity = Eight.classifyInstance(features.instance(0));
+                                break;
+                            case 8: 
+                                Activity = Nine.classifyInstance(features.instance(0));
+                                break;
+                            case 9: 
+                                Activity = Ten.classifyInstance(features.instance(0));
+                                break;
+                        }
+                    } 
+                    catch (Exception e) 
+                    {
+                        // TODO Auto-generated catch block
+                        // e.printStackTrace();
                     }
 
                     if(Activities.containsKey((int)Activity))

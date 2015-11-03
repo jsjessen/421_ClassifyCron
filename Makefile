@@ -1,10 +1,11 @@
 NAME := ClassifyCron
 LIBS := .:libs/mongo-java-driver-2.13.3.jar:libs/weka.jar
+SRCS := src/*.java
 
 all:
-	javac -cp $(LIBS) $(NAME).java
+	javac -classpath $(LIBS) $(SRCS)
 
 run:
-	java -cp $(LIBS) $(NAME)
+	java -classpath $(LIBS) ireach.Main #$(SRCS:.java=.class)
 
 q: | all run
