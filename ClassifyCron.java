@@ -25,9 +25,9 @@ import weka.classifiers.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.net.UnknownHostException;
-public class Java_sucks
+public class ClassifyCron 
 {
-    static class Raw_Data
+    static class RawData
     {
         public List<Double> Acc_x;
         public List<Double> Acc_y;
@@ -39,7 +39,7 @@ public class Java_sucks
         public List<Double> Mag_y;
         public List<Double> Mag_z;
 
-        public Raw_Data()
+        public RawData()
         {
             Acc_x = new ArrayList<Double>();
             Acc_y = new ArrayList<Double>();
@@ -112,7 +112,7 @@ public class Java_sucks
             while(cursor.hasNext()) 
             {
                 HashMap<Integer,Double> Activities = new HashMap<Integer,Double>();
-                Raw_Data data = new Raw_Data();
+                RawData data = new RawData();
                 //get raw data and put it into the data structure
                 BasicDBObject current_loc = (BasicDBObject)cursor.next();
                 //update item to have been processed
