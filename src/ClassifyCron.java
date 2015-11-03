@@ -62,17 +62,17 @@ public class ClassifyCron
         try
         {
             //load the classifiers
-            Node_loc = (Classifier) weka.core.SerializationHelper.read("models/NodeLoc.model");
-            One = (Classifier) weka.core.SerializationHelper.read("models/ActRec1.model");
-            Two = (Classifier) weka.core.SerializationHelper.read("models/ActRec2.model");
-            Three = (Classifier) weka.core.SerializationHelper.read("models/ActRec3.model");
-            Four = (Classifier) weka.core.SerializationHelper.read("models/ActRec4.model");
-            Five = (Classifier) weka.core.SerializationHelper.read("models/ActRec5.model");
-            Six = (Classifier) weka.core.SerializationHelper.read("models/ActRec6.model");
-            Seven = (Classifier) weka.core.SerializationHelper.read("models/ActRec7.model");
-            Eight = (Classifier) weka.core.SerializationHelper.read("models/ActRec8.model");
-            Nine = (Classifier) weka.core.SerializationHelper.read("models/ActRec9.model"); 
-            Ten = (Classifier) weka.core.SerializationHelper.read("models/ActRec10.model");
+            Node_loc = (Classifier) weka.core.SerializationHelper.read("../models/NodeLoc.model");
+            One = (Classifier) weka.core.SerializationHelper.read("../models/ActRec1.model");
+            Two = (Classifier) weka.core.SerializationHelper.read("../models/ActRec2.model");
+            Three = (Classifier) weka.core.SerializationHelper.read("../models/ActRec3.model");
+            Four = (Classifier) weka.core.SerializationHelper.read("../models/ActRec4.model");
+            Five = (Classifier) weka.core.SerializationHelper.read("../models/ActRec5.model");
+            Six = (Classifier) weka.core.SerializationHelper.read("../models/ActRec6.model");
+            Seven = (Classifier) weka.core.SerializationHelper.read("../models/ActRec7.model");
+            Eight = (Classifier) weka.core.SerializationHelper.read("../models/ActRec8.model");
+            Nine = (Classifier) weka.core.SerializationHelper.read("../models/ActRec9.model"); 
+            Ten = (Classifier) weka.core.SerializationHelper.read("../models/ActRec10.model");
         }
         catch (Exception e) 
         {
