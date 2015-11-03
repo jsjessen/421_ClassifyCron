@@ -200,8 +200,8 @@ public class ClassifyCron
                 }
 
                 //Run data through feature extraction
-                FeatureExtractor extractor = new FeatureExtractor(data);
-                Instances features = extractor.instances;
+                //FeatureExtractor extractor = new FeatureExtractor(data);
+                //Instances features = extractor.instances;
                 data = null;
 
                 //double time = features.numInstances()/30.0;
