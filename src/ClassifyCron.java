@@ -413,7 +413,7 @@ public class ClassifyCron
                     document.put("email", Email_Address);
                     document.put("created", Date_Created);
                     document.put("activity", Activity_Name);
-                    document.put("duration", max);
+                    document.put("duration", 30);
                     document.put("calories_burned", Calories_Burned);
                     db.getCollection("datas").insert(document);
                 }
