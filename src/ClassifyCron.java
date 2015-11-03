@@ -284,7 +284,7 @@ public class ClassifyCron
                      }
                 }
                     String Activity_Name = "";
-                    switch(max)
+                    switch((int)max)
                     {
                         case 0:
                             Activity_Name = "Sitting with Hands on Lap";
