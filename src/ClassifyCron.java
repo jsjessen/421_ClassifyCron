@@ -266,7 +266,7 @@ public class ClassifyCron
                     }
                 }
                 Set<Integer> keys = Activities.keySet();
-                int max = 0;
+                double max = 0.0;
                 for(int key : keys)
                 {
                    
