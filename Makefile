@@ -9,3 +9,6 @@ run:
 	java -classpath $(LIBS) com.ireach.$(NAME)
 
 q: | all run
+
+# Use this line to execute:
+# java -classpath .:libs/mongo-java-driver-2.13.3.jar:libs/weka.jar com.ireach.ClassifyCron
