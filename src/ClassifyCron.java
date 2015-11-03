@@ -270,7 +270,7 @@ public class ClassifyCron
                 for(int key : keys)
                 {
                    
-                    double Calories_Burned = 0.0;
+                    
                     /*
                      * TO DO:::::::::::::::::::::::
                      * Add Calorie Calculator to switch statement
@@ -283,6 +283,7 @@ public class ClassifyCron
                          max = Activities.get(key);
                      }
                 }
+                double Calories_Burned = 0.0;
                     String Activity_Name = "";
                     switch((int)max)
                     {
