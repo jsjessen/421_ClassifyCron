@@ -415,7 +415,7 @@ public class ClassifyCron
                     document.put("calories_burned", Calories_Burned);
                     db.getCollection("datas").insert(document);
                 }
-            }
+            
         }
         finally 
         {
