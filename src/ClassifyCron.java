@@ -407,7 +407,7 @@ public class ClassifyCron
                     document.put("activity", Activity_Name);
                     document.put("duration", Activities.get(key));
                     document.put("calories_burned", Calories_Burned);
-                    db.getCollection("data").insert(document);
+                    db.getCollection("datas").insert(document);
                 }
             }
         }
