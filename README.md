@@ -3,8 +3,8 @@
 Hence within are the models and files for node localization, activity recognition, and caloric expenditure.
 
 */models 
-**contains the .models necessery for classification
+    *contains the .models necessery for classification
 */libs
-**contains the .jars needed for Database Interaction and the usage of WEKA .models
+    *contains the .jars needed for Database Interaction and the usage of WEKA .models
 */src
-**contains the .java files that do the work
+    *contains the .java files that do the work
