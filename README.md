@@ -1,4 +1,10 @@
-Jacob's Notes:
+Readme v1.3
 
-Here's the awesome code created by James Jessen and Jacob St. Hilaire.
-Model locations will need to be updated in the code when placed on the server.
+Hence within are the models and files for node localization, activity recognition, and caloric expenditure.
+
+/models
+  contains the .models necessery for classification
+/libs
+  contains the .jars needed for Database Interaction and the usage of WEKA .models
+/src
+  contains the .java files that do the work
