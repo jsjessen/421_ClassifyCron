@@ -2,14 +2,14 @@ Readme v1.3
 
 Hence within are the models and files for node localization, activity recognition, and caloric expenditure.
 
-/models 
+*/models 
 
-  contains the .models necessery for classification
+  1contains the .models necessery for classification
   
-/libs
+*/libs
 
-  contains the .jars needed for Database Interaction and the usage of WEKA .models
+  1contains the .jars needed for Database Interaction and the usage of WEKA .models
   
-/src
+*/src
 
-  contains the .java files that do the work
+  1contains the .java files that do the work
