@@ -32,6 +32,12 @@ import java.net.UnknownHostException;
 
 public class ClassifyCron 
 {
+    // Model Information
+    // TODO: Change on server (or have as input arg?)
+    private final static String modelDir = "models/"; 
+    private final static String locationModelName = "NodeLoc"; //.model
+    private final static String activityModelName = "ActRec"; //#.model
+
     // Database information
     private MongoClient mongoClient = null;
     private final static String database_name = "m3";
@@ -49,15 +55,17 @@ public class ClassifyCron
     // Sensor data
     private final static String sensors[] = { "Acc", "Mag", "Gyro" };
     private final static String axes[] = { "x", "y", "z" };
-    private List<List<Double>> data = new ArrayList<List<Double>>(sensors.length * axes.length); 
+    private List<List<Double>> data = 
+        new ArrayList<List<Double>>(sensors.length * axes.length); 
     private Instances features;
 
     // Classifiers
     private Classifier locationClassifier = null;
     private int numActivityClassifiers = 10;
-    private Classifier[] activityClassifiers = new Classifier[numActivityClassifiers];
-
-    private List<Activity> activities = new ArrayList<Activity>(Activity.names.length);
+    private Classifier[] activityClassifiers = 
+        new Classifier[numActivityClassifiers];
+    private List<Activity> activities = 
+        new ArrayList<Activity>(Activity.names.length);
 
     ClassifyCron()
     {
@@ -110,15 +118,26 @@ public class ClassifyCron
         //Define what we actually want from the collection
         /*
            TODO
-           Find what feature is shared between the raw_datas collection and the other collection
+           Find what feature is shared between the raw_datas collection 
+           and the other collection
            .append("feature",1)
            FIXED!!!!!!!!
            Removed field to get all features.
-           */
 
-        //BasicDBObject field = new BasicDBObject("Acc.x", 1).append("_id", 0).append("Acc.y", 1).append("Acc.z", 1).append("Gyro.x", 1).append("Gyro.y", 1).append("Gyro.z", 1).append("Mag.x", 1).append("Mag.y", 1).append("Mag.z", 1);
-        //Actually query to the collection to find what we want
-        cursor = coll.find(query);
+           BasicDBObject field = new BasicDBObject("Acc.x", 1).
+           append("_id", 0).
+           append("Acc.y", 1).
+           append("Acc.z", 1).
+           append("Gyro.x", 1).
+           append("Gyro.y", 1).
+           append("Gyro.z", 1).
+           append("Mag.x", 1).
+           append("Mag.y", 1).
+           append("Mag.z", 1);
+
+           Actually query to the collection to find what we want
+           cursor = coll.find(query);
+           */
     }
 
     private void getData()
@@ -127,13 +146,16 @@ public class ClassifyCron
         BasicDBObject current_loc = (BasicDBObject)cursor.next();
 
         // Update item to have been processed
-        coll.update(current_loc,new BasicDBObject("$set", new BasicDBObject("processed", true)));
+        coll.update(current_loc,
+                new BasicDBObject("$set", new BasicDBObject("processed", true)));
 
         // Extract Email Address and Date_Created fields so we can update the data collection at the end
         Email_Address = (String)current_loc.get("email");
 
         // Now that we have the Email Address we need to find the patients weight so we can laugh it it
-        Weight = (int)db.getCollection("patients").findOne(new BasicDBObject("email", Email_Address),new BasicDBObject("weight",1).append("_id", 0)).get("weight");
+        Weight = (int)db.getCollection("patients").findOne(
+                new BasicDBObject("email", Email_Address),
+                new BasicDBObject("weight",1).append("_id", 0)).get("weight");
 
         Date_Created = (String)current_loc.get("created");
         //System.out.println(Date_Created);
@@ -170,10 +192,12 @@ public class ClassifyCron
         try
         {
             //load the classifiers
-            locationClassifier = (Classifier) weka.core.SerializationHelper.read("models/NodeLoc.model");
+            locationClassifier = (Classifier) weka.core.SerializationHelper.
+                read(modelDir + locationModelName + ".model");
 
             for(int i = 0; i < numActivityClassifiers; i++)
-                activityClassifiers[i] = ((Classifier)weka.core.SerializationHelper.read("models/ActRec" + i + ".model"));
+                activityClassifiers[i] = ((Classifier)weka.core.SerializationHelper.
+                        read(modelDir + activityModelName + i + ".model"));
         }
         catch (Exception e) 
         {
@@ -196,8 +220,11 @@ public class ClassifyCron
             int activityCode;
             try
             {
-                int Location = (int)locationClassifier.classifyInstance(features.instance(i));
-                activityCode = (int)activityClassifiers[Location].classifyInstance(features.instance(0));
+                int Location = (int)locationClassifier.
+                    classifyInstance(features.instance(i));
+
+                activityCode = (int)activityClassifiers[Location].
+                    classifyInstance(features.instance(0));
             } 
             catch (Exception e) 
             {
